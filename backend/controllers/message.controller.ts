@@ -3,7 +3,7 @@ import { JwtPayload } from "jsonwebtoken";
 import { Types } from "mongoose";
 import Conversation from "../models/conversation.model";
 import Message from "../models/message.model";
-
+import { getReceiverSocketId, io } from "../socket/socket"
 
 export interface CustomRequest extends Request {
     token: string | JwtPayload;
@@ -48,10 +48,14 @@ export const sendMessage = async(req: Request, res: Response) => {
           conversation.messages.push(newMessage._id);
         }
         // console.log(senderId);
+        await Promise.all([conversation.save(),newMessage.save()]);
 
         // Socket io goes here vì ứng dụng cho các realtime application
-
-        await Promise.all([conversation.save(),newMessage.save()]);
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        
+        if(receiverSocketId){
+          io.to(receiverSocketId).emit("newMessage",newMessage);
+        }
 
         res.status(201).json(newMessage);
 

@@ -40,7 +40,6 @@ export const protectRoute = async (
       if (!user) {
         throw new Error();
       }
-
       (req as CustomRequest).user = user;
       
       next();

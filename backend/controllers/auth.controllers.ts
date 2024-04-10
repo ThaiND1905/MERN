@@ -56,15 +56,17 @@ export const signup = async (req:Request, res :Response) => {
 
 export const login = async (req:Request, res :Response) => {
     try{
-        const {username, password} = req.body;
-        const user = await User.findOne({username});
+        const {userName, password} = req.body;
+        console.log(req.body);
+        const user = await User.findOne({userName});
         const isPasswordCorrect = await bcrypt.compare(password, user?.password || "");
+        
 
         if(!user || !isPasswordCorrect){
             return res.status(400).json({error: "Invalid username or password"});
         }
-
-        generateTokenAndSetCookie(user._id,password);
+        
+        generateTokenAndSetCookie(user._id,res);
 
         res.status(201).json({
             _id: user._id,
@@ -79,6 +81,12 @@ export const login = async (req:Request, res :Response) => {
     }
 }
 
-export const logout = (req:Request, res :Response) => {
-    console.log("Logout Route")
+export const logout = async (req:Request, res :Response) => {
+    try{
+        res.cookie("jwt","",{maxAge: 0});
+        res.status(200).json({message: "Logged out successfully!!"});
+    }catch(err){
+        console.log("Error in logout controller", (err as Error).message);
+        res.status(500).json({ error: "Internal Server Error"})
+    }
 }
