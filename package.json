@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "npx tsx backend/server.ts",
-    "start" : "node backend/server.ts",
+    "start" : "npx tsx backend/server.ts",
     "build" : "npm install && npm install --prefix frontend && npm run build --prefix frontend "
   },
   "repository": {
