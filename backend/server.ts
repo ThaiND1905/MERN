@@ -24,6 +24,10 @@ app.use("/api/users/",UserRoute);
 
 app.use(express.static(path.join(_dirname,"/frontend/dist")));
 
+app.get("*",(req :Request , res: Response) => {
+  res.sendFile(path.join(_dirname,"frontend","dist","index.html"));
+})
+
 server.listen(port, () => {
   connectToMongoDB();
   console.log(`[server]: Server is running at http://localhost:${port}`);
