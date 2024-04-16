@@ -2,7 +2,6 @@ import { ConversationInterface } from "../../hook/useGetConversations"
 import { useSocketContext } from "../../hook/useSocketContext";
 import useConversation from "../../zustand/useConversation"
 
-
 type ConversationProp =  {
     conversation: ConversationInterface,
     lastIdx: boolean,
@@ -16,6 +15,7 @@ const Conversation = ({conversation,lastIdx,emoji} : ConversationProp) => {
     const isOnline = onlineUsers.includes(conversation._id);
 
     const clickHandler = () => {
+        
         return (event: React.MouseEvent) => {
           event.preventDefault();
           setSelectedConversation(conversation);

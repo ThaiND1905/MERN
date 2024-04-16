@@ -2,21 +2,45 @@ import Messages from "./Messages"
 import MessageInput from "./MessageInput"
 import {TiMessage} from "react-icons/ti"
 import useConversation from "../../zustand/useConversation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAuthContext } from "../../hook/useAuthContext"
+import { BiArrowBack } from "react-icons/bi"
+
 
 const MessageContainer = () => {
     const { selectedConversation, setSelectedConversation} = useConversation();
-
+    const [ isHidden , setIsHidden ] = useState(false);
     useEffect(() => {
         return () => setSelectedConversation(null);
     }, [setSelectedConversation]);
+    const [deviceSize, changeDeviceSize] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const resizeW = () => changeDeviceSize(window.innerWidth);
+  
+      window.addEventListener("resize", resizeW); // Update the width on resize
+  
+      return () => window.removeEventListener("resize", resizeW);
+    });
+    
+
+
+    const handleOnclick = () =>{
+        setSelectedConversation(null);
+        if(deviceSize <= 850){
+            setIsHidden(true);
+    }
+    }
+
     return (
-    <div className="md:min-w-[450px] flex flex-col">
+    <div className={`md:min-w-[450px] ${ isHidden ? "hidden" : ""} flex flex-col`}>
         { !selectedConversation ? <NoChatSelected/> : (
         <>
         {/* Header */}
-            <div className="bg-slate-500 px-4 py-2 mb-2">
+            <div className="bg-slate-500 px-4 py-2 mb-2 relative">
+                <button onClick={handleOnclick} className="items-center pe-3 absolute start-0 p-1 ml-1">
+                    <BiArrowBack/> 
+                </button>
                 <span className="label-text"> To </span>
                 <span className="text-gray-900 font-bold"> {selectedConversation!.fullName} </span>
             </div>

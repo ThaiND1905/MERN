@@ -7,28 +7,26 @@
   --secondary: cornflowerblue;
 }
 
+#root{
+  padding: 0;
+  margin: 0;
+}
+
 body {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url(/bg.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  padding: 0;
+  margin: 0;
 }
 
 *::-webkit-scrollbar {
   width: 15px;
+  display: none;
 }
 
-*::-webkit-scrollbar-track {
-  background: var(--primary);
-  border-radius: 5px;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-color: var(--secondary);
-  border-radius: 14px;
-  border: 3px solid var(--primary);
-}
 
 /* Shake animation */
 

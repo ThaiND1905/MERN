@@ -2,9 +2,9 @@ import Conversation from "./Conversation"
 import useGetConversation from "../../hook/useGetConversations"
 import { getRandomEmoji } from "../../utils/emojis";
 
+
 const Conversations = () => {
   const {isLoading, conversations} = useGetConversation();
-
   return (
     <div className="py-2 flex flex-col overflow-auto">
       {

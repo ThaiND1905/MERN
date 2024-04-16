@@ -12,7 +12,7 @@ interface Map {
 
 const io = new Server(server,{
     cors: {
-        origin: ["https://localhost:3000"],
+        origin: ["https://mern-l32m.onrender.com"],
         methods: ["GET", "POST"],
     }
 });

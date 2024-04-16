@@ -22,8 +22,6 @@ const useSignUp = () => {
 
 
         if (!success) return; 
-
-
         
         setIsLoading(true);
 

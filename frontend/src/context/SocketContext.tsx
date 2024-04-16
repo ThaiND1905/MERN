@@ -40,7 +40,7 @@ export const SocketContextProvider = ({children} : SocketProviderProps) => {
 
     useEffect(() => {
         if(authUser) {
-            const socket = io("http://localhost:5000", { transports : ['websocket'] , query : {
+            const socket = io("https://mern-l32m.onrender.com", { transports : ['websocket'] , query : {
                 userId : authUser._id,
             }});
             setSocket(socket);
